@@ -1,1 +1,1 @@
-Sample usage of ECL procedures in Q7
+This is an illustration for [[http://www.xored.com/2013/09/03/procedures-and-variables/][Procedures and variables]] blog post.
