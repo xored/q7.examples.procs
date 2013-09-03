@@ -1,0 +1,44 @@
+--- Q7 testcase ---
+Format-Version: 1.0
+Q7-vendor: www.xored.com/q7
+Context-Type: com.xored.q7.workspace.context
+Element-Name: Java Project with a package
+Element-Type: context
+Element-Version: 2.0
+Id: _ydhxEAoLEeO88fLIau9YBQ
+Q7-Runtime-Version: 1.3.7.qualifier
+Save-Time: 9/3/13 6:50 PM
+
+------=_contents/sample/.project-563d72cb-3c46-376b-8ab6-8703fb2585e3
+Content-Type: q7/binary
+Entry-Name: contents/sample/.project
+
+UEsDBBQACAAIAAAAIQAAAAAAAAAAAAAAAAAIAAAALmNvbnRlbnR1kEsOwiAYhNf2FE33gu5cULrQeAH1
+AAh/GpryCNDG4wsFG2vibmY6w0ch3UuN9QzOS6Pb5ogOTQ2aGyF13zaP+3V/ajpaEevMADxcwHMnbYhl
+Wu2IZgqoZ8qOQPBiYsiNUqADJfijYlj2Pmn8bZ6THMXNAo+muHOcMS1SUBDG9Qj4KK0HNIiAuHFRsJkt
+fXArPA6Y66dE9dnijSf4h1CCcoFIC5ODXM36Pzt/T+ill85a5+s/bh7sDVBLBwgT3xgpuQAAAG0BAABQ
+SwECFAAUAAgACAAAACEAE98YKbkAAABtAQAACAAAAAAAAAAAAAAAAAAAAAAALmNvbnRlbnRQSwUGAAAA
+AAEAAQA2AAAA7wAAAAAA
+------=_contents/sample/.project-563d72cb-3c46-376b-8ab6-8703fb2585e3--
+------=_contents/sample/.classpath-857e19e7-90e3-30cf-8ab0-48c07b557129
+Content-Type: q7/binary
+Entry-Name: contents/sample/.classpath
+
+UEsDBBQACAAIAAAAIQAAAAAAAAAAAAAAAAAIAAAALmNvbnRlbnSzsa/IzVEoSy0qzszPs1Uy1DNQUkjN
+S85PycxLt1UKDXHTtVCyt+OySc5JLC4uSCzJsOPiRHBS80qKKhWyM/NSbJWKi5KVFECCEKY+ToXJ+Xkw
+hflF6XqpyTmZBcWpelkpJXo5iaV5yRlAq/W8glzjnf39Qhw9/VyD9PGYll9aUlBaAjMwKTMPpNZGH8m9
+AFBLBwi09c8ljwAAAOMAAABQSwECFAAUAAgACAAAACEAtPXPJY8AAADjAAAACAAAAAAAAAAAAAAAAAAA
+AAAALmNvbnRlbnRQSwUGAAAAAAEAAQA2AAAAxQAAAAAA
+------=_contents/sample/.classpath-857e19e7-90e3-30cf-8ab0-48c07b557129--
+------=_.q7.content-3d2e0690-ce48-3609-83e0-c704d49f1eaf
+Content-Type: q7/binary
+Entry-Name: .q7.content
+
+UEsDBBQACAAIAAAAIQAAAAAAAAAAAAAAAAAIAAAALmNvbnRlbnS9kkFTgzAQhe/8ikzuJuqlyAAddXqo
+U0c9qScnhgCxkFCSlvjvXVrI4NCDJ2+b/V7ebt4kXrq6QgfRGqlVgq/IJUZCcZ1JVSR4b/OLEC/TIOa6
+Jk63IiO7Bel0uzUN4yJ6Hat7raxwFrlaRt7tuncDf2Ui6Ce4tLaJKO26jui6ILot6NvjepScH+FvUeD0
+yOluQT0ngkMPI8Vq0D6wA0PPrf4S3KJO2hIxBKotK0AiswR/fGelW93qzUo8hWG+WbP9zfvdC04DhOCR
+8Ahl+xpOzcnGDNaG1U0l8AkCzmUlRkZ4xQysY0tMzwsGsynWVQZBDYJPqbz1DEJQEzjDwp1WoxMDOkj8
+uFnjt4dp+X/Oj+mY7jF46pPvyz/9tDT4AVBLBwiXxBg/HwEAALsCAABQSwECFAAUAAgACAAAACEAl8QY
+Px8BAAC7AgAACAAAAAAAAAAAAAAAAAAAAAAALmNvbnRlbnRQSwUGAAAAAAEAAQA2AAAAVQEAAAAA
+------=_.q7.content-3d2e0690-ce48-3609-83e0-c704d49f1eaf--
