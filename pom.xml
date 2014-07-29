@@ -92,6 +92,9 @@
             <configuration>
               <aut>
 		<explicit>${project.build.directory}/${profile-id}/eclipse</explicit>
+		<vmArgs>
+		  <vmArg>-Dosgi.debug=${basedir}/osgi.debug</vmArg>
+		</vmArgs>
               </aut>
               <testOptions>
 		<autStartupTimeout>600</autStartupTimeout>
@@ -126,6 +129,9 @@
             <configuration>
               <aut>
 		<explicit>${project.build.directory}/${profile-id}/eclipse</explicit>
+		<vmArgs>
+		  <vmArg>-Dosgi.debug=${basedir}/osgi.debug</vmArg>
+		</vmArgs>
               </aut>
               <testOptions>
 		<autStartupTimeout>600</autStartupTimeout>
