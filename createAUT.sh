@@ -81,10 +81,3 @@ fi
 echo "Unzipping $simrel_zip_name"
 tar zxf "$simrel_zip_path" -C $simrel_path
 
-if [[ "$simrel" == "luna"* ]]; then
-    echo "Provisioning AUT"
-    echo "  Repositories: $p2_repositories"
-    echo "  IUs: $p2_installIUs"
-    $P2_ADMIN_PATH/p2-admin -vm $JAVA_HOME/bin/java -application org.eclipse.equinox.p2.director -repository "$p2_repositories" -installIU "$p2_installIUs" -tag Q7_AUT -destination "$simrel_path/eclipse" -profile SDKProfile
-    
-fi
