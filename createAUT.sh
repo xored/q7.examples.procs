@@ -41,10 +41,11 @@ if [[ "$simrel" == "luna"* ]]; then
 	p2_repositories="http://download.eclipse.org/releases/luna/,\
 http://download.eclipse.org/modeling/emf/compare/updates/nightly/latest/,\
 http://download.eclipse.org/egit/updates-nightly"
+
+	# NB: papyrus sdk seems to be essential here
 	p2_installIUs="org.eclipse.emf.sdk.feature.group,\
 org.eclipse.uml2.uml.feature.group,\
-org.eclipse.papyrus.sdk.feature.feature.group,\
-org.eclipse.emf.compare.uml2.feature.group"
+org.eclipse.papyrus.sdk.feature.feature.group"
 elif [[ "$simrel" == "kepler"* ]]; then
 	simrel_zip_name="eclipse-SDK-4.3.2-${target_env}.tar.gz"
 	simrel_zip_url="http://archive.eclipse.org/eclipse/downloads/drops4/R-4.3.2-201402211700/$simrel_zip_name"	

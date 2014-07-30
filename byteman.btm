@@ -101,8 +101,9 @@ RULE PartRenderingEngine enter
 CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
 METHOD run
 AT ENTRY
+BIND r = $1
 IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine enter")
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine enter. uiRoot: " + r)
 ENDRULE
 
 RULE PartRenderingEngine exit
