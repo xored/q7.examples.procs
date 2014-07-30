@@ -3,7 +3,7 @@ CLASS org.eclipse.ui.PlatformUI
 METHOD createAndRunWorkbench
 AT ENTRY
 IF TRUE
-DO traceln("BYTEMAN: Workbench created")
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench created")
 ENDRULE
 
 RULE platform ui exit
@@ -11,25 +11,25 @@ CLASS org.eclipse.ui.PlatformUI
 METHOD createAndRunWorkbench
 AT EXIT
 IF TRUE
-DO traceln("BYTEMAN: createAndRunWorkbench returned: " + $!)
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] createAndRunWorkbench returned: " + $!)
 ENDRULE
 
 RULE enter early startup
 CLASS org.eclipse.ui.internal.EarlyStartupRunnable
 METHOD runEarlyStartup
-AT ENTER
+AT ENTRY
 BIND ext = $1
 IF TRUE
-DO traceln("BYTEMAN: begin earlyStartup of " + ext);
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] begin earlyStartup of " + ext)
 ENDRULE
 
-RULE eit early startup
+RULE exit early startup
 CLASS org.eclipse.ui.internal.EarlyStartupRunnable
 METHOD runEarlyStartup
 AT ENTRY
 BIND ext = $1
 IF TRUE
-DO traceln("BYTEMAN: end earlyStartup of " + ext);
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] end earlyStartup of " + ext)
 ENDRULE
 
 RULE start startPlugins
@@ -37,7 +37,7 @@ CLASS org.eclipse.ui.internal.Workbench
 METHOD startPlugins
 AT ENTRY
 IF TRUE
-DO traceln("BYTEMAN: Workbench.startPlugins begin");
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.startPlugins begin");
 ENDRULE
 
 RULE end  startPlugins
@@ -45,7 +45,7 @@ CLASS org.eclipse.ui.internal.Workbench
 METHOD startPlugins
 AT EXIT
 IF TRUE
-DO traceln("BYTEMAN: Workbench.startPlugins end");
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.startPlugins end");
 ENDRULE
 
 RULE start runUI
@@ -53,7 +53,7 @@ CLASS org.eclipse.ui.internal.Workbench
 METHOD runUI
 AT ENTRY
 IF TRUE
-DO traceln("BYTEMAN: Workbench.runUI begin");
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.runUI begin");
 ENDRULE
 
 RULE end runUI
@@ -61,7 +61,7 @@ CLASS org.eclipse.ui.internal.Workbench
 METHOD runUI
 AT EXIT
 IF TRUE
-DO traceln("BYTEMAN: Workbench.runUI end");
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.runUI end");
 ENDRULE
 
 RULE workbench init end
@@ -69,7 +69,7 @@ CLASS org.eclipse.ui.internal.Workbench
 METHOD init
 AT EXIT
 IF TRUE
-DO traceln("BYTEMAN: Workbench.init returned: " + $!)
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.init returned: " + $!)
 ENDRULE
 
 RULE e4workbench start
@@ -77,7 +77,7 @@ CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
 METHOD createAndRunUI
 AT ENTRY
 IF TRUE
-DO traceln("Byteman: " + new java.util.Date() + " E4Workbench enter")
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench enter")
 ENDRULE
 
 RULE e4workbench end
@@ -85,14 +85,14 @@ CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
 METHOD createAndRunUI
 AT EXIT
 IF TRUE
-DO traceln("Byteman: [" + new java.util.Date() + "] E4Workbench exit")
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench exit")
 ENDRULE
 
 RULE e4workbench after renderer instantiation
 CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
 METHOD createAndRunUI
 AFTER INVOKE instantiateRenderer
-BIND r = renderer
+BIND r = $0.renderer
 IF TRUE
-DO traceln("Byteman: [" + new java.util.Date() + "] E4Workbench renderer is: " + r)
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench renderer is: " + r)
 ENDRULE
