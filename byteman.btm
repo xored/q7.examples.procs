@@ -128,3 +128,11 @@ AT EXIT
 IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui exit, return: " + $!)
 ENDRULE
+
+RULE event loop error
+INTERFACE IEventLoopAdvisor
+METHOD eventLoopException(Throwable)
+AT ENTRY
+IF TRUE
+DO traceln("BYTEMAN:  event loop is idle")
+ENDRULE
