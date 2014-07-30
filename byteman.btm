@@ -96,3 +96,19 @@ BIND r = $0.renderer
 IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench renderer is: " + r)
 ENDRULE
+
+RULE PartRenderingEngine enter
+CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+METHOD run
+AT ENTRY
+IF TRUE
+DO traceln("BYTEMAN" [" + new java.util.Date() + "] PartRenderingEngine enter")
+ENDRULE
+
+RULE PartRenderingEngine exit
+CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+METHOD run
+AT EXIT
+IF TRUE
+DO traceln("BYTEMAN" [" + new java.util.Date() + "] PartRenderingEngine exit")
+ENDRULE
