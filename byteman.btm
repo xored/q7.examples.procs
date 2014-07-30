@@ -33,7 +33,7 @@ IF TRUE
 DO traceln("BYTEMAN: end earlyStartup of " + ext);
 ENDRULE
 
-RULE start plugins
+RULE start startPlugins
 CLASS org.eclipse.ui.internal.Workbench
 METHOD startPlugins
 AT ENTER
@@ -41,10 +41,26 @@ IF TRUE
 DO traceln("BYTEMAN: Workbench.startPlugins begin");
 ENDRULE
 
-RULE start plugins
+RULE end  startPlugins
 CLASS org.eclipse.ui.internal.Workbench
 METHOD startPlugins
 AT EXIT
 IF TRUE
 DO traceln("BYTEMAN: Workbench.startPlugins end");
+ENDRULE
+
+RULE start runUI
+CLASS org.eclipse.ui.internal.Workbench
+METHOD runUI
+AT ENTER
+IF TRUE
+DO traceln("BYTEMAN: Workbench.runUI begin");
+ENDRULE
+
+RULE end runUI
+CLASS org.eclipse.ui.internal.Workbench
+METHOD runUI
+AT EXIT
+IF TRUE
+DO traceln("BYTEMAN: Workbench.runUI end");
 ENDRULE
