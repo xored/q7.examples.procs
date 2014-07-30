@@ -15,3 +15,20 @@ IF TRUE
 DO traceln("BYTEMAN: createAndRunWorkbench returned: " + $!)
 ENDRULE
 
+RULE enter early startup
+CLASS org.eclipse.ui.internal.EarlyStartupRunnable
+METHOD runEarlyStartup
+AT ENTER
+BIND ext = $1
+IF TRUE
+DO traceln("BYTEMAN: begin earlyStartup of " + ext);
+ENDRULE
+
+RULE eit early startup
+CLASS org.eclipse.ui.internal.EarlyStartupRunnable
+METHOD runEarlyStartup
+AT ENTER
+BIND ext = $1
+IF TRUE
+DO traceln("BYTEMAN: end earlyStartup of " + ext);
+ENDRULE
