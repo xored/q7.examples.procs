@@ -129,10 +129,10 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui exit, return: " + $!)
 ENDRULE
 
-RULE event loop error
-INTERFACE IEventLoopAdvisor
-METHOD eventLoopException(Throwable)
+RULE E4Testable init
+CLASS org.eclipse.e4.ui.internal.workbench.swt.E4Testable
+METHOD init
 AT ENTRY
 IF TRUE
-DO traceln("BYTEMAN:  event loop is idle")
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Testable.init, display: " + $1)
 ENDRULE
