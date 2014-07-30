@@ -44,7 +44,6 @@ http://download.eclipse.org/egit/updates-nightly"
 
 	# NB: papyrus sdk seems to be essential here
 	p2_installIUs="org.eclipse.emf.sdk.feature.group,\
-org.eclipse.uml2.uml.feature.group,\
 org.eclipse.papyrus.sdk.feature.feature.group"
 elif [[ "$simrel" == "kepler"* ]]; then
 	simrel_zip_name="eclipse-SDK-4.3.2-${target_env}.tar.gz"
