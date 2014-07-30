@@ -6,7 +6,6 @@ IF TRUE
 DO traceln("BYTEMAN: Workbench created")
 ENDRULE
 
-
 RULE platform ui exit
 CLASS org.eclipse.ui.PlatformUI
 METHOD createAndRunWorkbench
@@ -27,7 +26,7 @@ ENDRULE
 RULE eit early startup
 CLASS org.eclipse.ui.internal.EarlyStartupRunnable
 METHOD runEarlyStartup
-AT ENTER
+AT ENTRY
 BIND ext = $1
 IF TRUE
 DO traceln("BYTEMAN: end earlyStartup of " + ext);
@@ -36,7 +35,7 @@ ENDRULE
 RULE start startPlugins
 CLASS org.eclipse.ui.internal.Workbench
 METHOD startPlugins
-AT ENTER
+AT ENTRY
 IF TRUE
 DO traceln("BYTEMAN: Workbench.startPlugins begin");
 ENDRULE
@@ -52,7 +51,7 @@ ENDRULE
 RULE start runUI
 CLASS org.eclipse.ui.internal.Workbench
 METHOD runUI
-AT ENTER
+AT ENTRY
 IF TRUE
 DO traceln("BYTEMAN: Workbench.runUI begin");
 ENDRULE
@@ -63,4 +62,12 @@ METHOD runUI
 AT EXIT
 IF TRUE
 DO traceln("BYTEMAN: Workbench.runUI end");
+ENDRULE
+
+RULE workbench init end
+CLASS org.eclipse.ui.internal.Workbench
+METHOD init
+AT EXIT
+IF TRUE
+DO traceln("BYTEMAN: Workbench.init returned: " + $!)
 ENDRULE
