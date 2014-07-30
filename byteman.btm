@@ -32,3 +32,19 @@ BIND ext = $1
 IF TRUE
 DO traceln("BYTEMAN: end earlyStartup of " + ext);
 ENDRULE
+
+RULE start plugins
+CLASS org.eclipse.ui.internal.Workbench
+METHOD startPlugins
+AT ENTER
+IF TRUE
+DO traceln("BYTEMAN: Workbench.startPlugins begin");
+ENDRULE
+
+RULE start plugins
+CLASS org.eclipse.ui.internal.Workbench
+METHOD startPlugins
+AT EXIT
+IF TRUE
+DO traceln("BYTEMAN: Workbench.startPlugins end");
+ENDRULE
