@@ -85,5 +85,14 @@ CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
 METHOD createAndRunUI
 AT EXIT
 IF TRUE
-DO traceln("Byteman: " + new java.util.Date() + " E4Workbench exit")
+DO traceln("Byteman: [" + new java.util.Date() + "] E4Workbench exit")
+ENDRULE
+
+RULE e4workbench after renderer instantiation
+CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
+METHOD createAndRunUI
+AFTER INVOKE instantiateRenderer
+BIND r = renderer
+IF TRUE
+DO traceln("Byteman: [" + new java.util.Date() + "] E4Workbench renderer is: " + r)
 ENDRULE
