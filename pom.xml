@@ -94,6 +94,8 @@
 		<explicit>${project.build.directory}/${profile-id}/eclipse</explicit>
 		<vmArgs>
 		  <vmArg>-Dosgi.debug=${basedir}/osgi.debug</vmArg>
+		  <vmArg>-Xbootclasspath/p:${basedir}/byteman-bin/lib/byteman.jar</vmArg>
+		  <vmArg>-javaagent:${basedir}/byteman-bin/lib/byteman.jar=script:${basedir}/byteman.btm</vmArg>
 		</vmArgs>
               </aut>
               <testOptions>
