@@ -1,4 +1,4 @@
-org.eclipse.equinox.weaving.hook/debug = true
+org.eclipse.equinox.weaving.hook/debug = false
 org.eclipse.equinox.weaving.hook/debug/bundle = false
 org.eclipse.equinox.weaving.hook/debug/bundleName = false
 org.eclipse.equinox.weaving.hook/debug/cache = false
@@ -19,3 +19,4 @@ org.eclipse.osgi/debug/packageadmin = false
 org.eclipse.osgi/debug/packageadmin/timing = false
 org.eclipse.osgi/monitor/activation = false
 org.eclipse.osgi/debug/messageBundles = false
+com.xored.tesla.core.am/logging = true
