@@ -78,6 +78,7 @@ METHOD createAndRunUI
 AT ENTRY
 IF TRUE
 DO traceln("Byteman: " + new java.util.Date() + " E4Workbench enter")
+ENDRULE
 
 RULE e4workbench end
 CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
@@ -85,3 +86,4 @@ METHOD createAndRunUI
 AT EXIT
 IF TRUE
 DO traceln("Byteman: " + new java.util.Date() + " E4Workbench exit")
+ENDRULE
