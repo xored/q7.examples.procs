@@ -112,3 +112,19 @@ AT EXIT
 IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit")
 ENDRULE
+
+RULE PartRenderingEngine createGui enter
+CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+METHOD createGui
+AT ENTRY
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui enter")
+ENDRULE
+
+RULE PartRenderingEngine createGui exit
+CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+METHOD createGui
+AT EXIT
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui exit, return: " + $!)
+ENDRULE
