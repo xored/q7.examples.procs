@@ -119,6 +119,7 @@ METHOD createGui
 AT ENTRY
 IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui enter")
+traceStack()
 ENDRULE
 
 RULE PartRenderingEngine createGui exit
