@@ -108,9 +108,11 @@ ENDRULE
 RULE PartRenderingEngine exit
 CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
 METHOD run
+BIND d = $display
 AT EXIT
 IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit")
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. Display: " + d);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. Display is disposed: " + d.isDisposed());
 ENDRULE
 
 RULE PartRenderingEngine createGui enter
@@ -118,8 +120,7 @@ CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
 METHOD createGui
 AT ENTRY
 IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui enter")
-traceStack()
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui enter");
 ENDRULE
 
 RULE PartRenderingEngine createGui exit

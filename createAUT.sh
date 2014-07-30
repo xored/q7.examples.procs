@@ -43,6 +43,7 @@ http://download.eclipse.org/modeling/emf/compare/updates/nightly/latest/,\
 http://download.eclipse.org/egit/updates-nightly"
 	p2_installIUs="org.eclipse.emf.sdk.feature.group,\
 org.eclipse.uml2.uml.feature.group,\
+org.eclipse.papyrus.sdk.feature.feature.group,\
 org.eclipse.emf.compare.uml2.feature.group"
 elif [[ "$simrel" == "kepler"* ]]; then
 	simrel_zip_name="eclipse-SDK-4.3.2-${target_env}.tar.gz"
