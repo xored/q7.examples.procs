@@ -59,9 +59,14 @@
         <extensions>true</extensions>
         <configuration>
           <aut>
+	    <!-- groupId>org.eclipse</groupId>
+	    <artifactId>modeling</artifactId>
+	    <version>4.4.0</version -->
 	    <explicit>http://download.eclipse.org/eclipse/downloads/drops4/R-4.4-201406061215/eclipse-SDK-4.4-linux-gtk-x86_64.tar.gz</explicit>
 	    <vmArgs>
 	      <vmArg>-Dosgi.debug=${basedir}/osgi.debug</vmArg>
+	      <vmArg>-Xbootclasspath/p:${basedir}/byteman-bin/lib/byteman.jar</vmArg>
+	      <vmArg>-javaagent:${basedir}/byteman-bin/lib/byteman.jar=script:${basedir}/byteman.btm</vmArg>
 	    </vmArgs>
           </aut>
           <testOptions>

@@ -1,0 +1,17 @@
+RULE platform ui enter
+CLASS org.eclipse.ui.PlatformUI
+METHOD createAndRunWorkbench
+AT ENTRY
+IF TRUE
+DO traceln("BYTEMAN: Workbench created")
+ENDRULE
+
+
+RULE platform ui exit
+CLASS org.eclipse.ui.PlatformUI
+METHOD createAndRunWorkbench
+AT EXIT
+IF TRUE
+DO traceln("BYTEMAN: createAndRunWorkbench returned: " + $!)
+ENDRULE
+
