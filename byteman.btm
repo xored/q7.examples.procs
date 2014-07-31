@@ -197,6 +197,6 @@ AT INVOKE java.lang.Thread.getAllStackTraces
 BIND wins = $windows;
      shells = $windowShells;
 IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + $windows.length);
-   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + $shells.size());
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + wins.length);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + shells.size());
 ENDRULE
