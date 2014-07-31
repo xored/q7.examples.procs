@@ -199,5 +199,3 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + $windows.length);
    traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + $shells.size());
 ENDRULE
-
-ENDRULE
