@@ -179,6 +179,7 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. element: " + win);
    traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. widget: " + wid);
    traceStack();
+ENDRULE
 
 RULE close dialogs thread interruption
 CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
