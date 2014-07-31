@@ -169,3 +169,14 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.getWidget: " + res)
 ENDRULE
 
+RULE window set widget
+CLASS  org.eclipse.e4.ui.model.application.ui.impl.UIElementImpl
+METHOD setWidget
+AT ENTRY
+BIND win = $0;
+     wid = $1;
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. element: " + win);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. widget: " + wid);
+   traceStack();
+ENDRULE
