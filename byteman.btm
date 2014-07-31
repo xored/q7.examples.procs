@@ -246,3 +246,14 @@ DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell: " + s);
    traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell data: " + d);
    return true;
 ENDRULE
+
+RULE track set workbench window
+CLASS org.eclipse.e4.core.internal.contexts.EclipseContext
+METHOD set(String, Object)
+AT ENTRY
+BIND name = $1;
+     val = $2;
+IF (name.contains("IWorkbenchWindow"))
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] Set workbench window. window: " + val);
+   traceStack();
+ENDRULE
