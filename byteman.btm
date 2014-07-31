@@ -232,3 +232,17 @@ DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell: " + s);
    traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell data: " + d);
    return true;
 ENDRULE
+
+
+
+RULE close dialogs avoid close q7
+CLASS com.xored.q7.internal.runtime.ui.Utils
+METHOD doCloseDialogs
+AFTER INVOKE getData
+BIND d = $!;
+     s = $shell;
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell: " + s);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell data: " + d);
+   return true;
+ENDRULE
