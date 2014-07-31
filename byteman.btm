@@ -1,238 +1,238 @@
-RULE platform ui enter
-CLASS org.eclipse.ui.PlatformUI
-METHOD createAndRunWorkbench
-AT ENTRY
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench created")
-ENDRULE
-
-RULE platform ui exit
-CLASS org.eclipse.ui.PlatformUI
-METHOD createAndRunWorkbench
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] createAndRunWorkbench returned: " + $!)
-ENDRULE
-
-RULE enter early startup
-CLASS org.eclipse.ui.internal.EarlyStartupRunnable
-METHOD runEarlyStartup
-AT ENTRY
-BIND ext = $1
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] begin earlyStartup of " + ext)
-ENDRULE
-
-RULE exit early startup
-CLASS org.eclipse.ui.internal.EarlyStartupRunnable
-METHOD runEarlyStartup
-AT ENTRY
-BIND ext = $1
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] end earlyStartup of " + ext)
-ENDRULE
-
-RULE start startPlugins
-CLASS org.eclipse.ui.internal.Workbench
-METHOD startPlugins
-AT ENTRY
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.startPlugins begin");
-ENDRULE
-
-RULE end  startPlugins
-CLASS org.eclipse.ui.internal.Workbench
-METHOD startPlugins
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.startPlugins end");
-ENDRULE
-
-RULE start runUI
-CLASS org.eclipse.ui.internal.Workbench
-METHOD runUI
-AT ENTRY
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.runUI begin");
-ENDRULE
-
-RULE end runUI
-CLASS org.eclipse.ui.internal.Workbench
-METHOD runUI
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.runUI end");
-ENDRULE
-
-RULE workbench init end
-CLASS org.eclipse.ui.internal.Workbench
-METHOD init
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.init returned: " + $!)
-ENDRULE
-
-RULE e4workbench start
-CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
-METHOD createAndRunUI
-AT ENTRY
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench enter")
-ENDRULE
-
-RULE e4workbench end
-CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
-METHOD createAndRunUI
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench exit")
-ENDRULE
-
-RULE e4workbench after renderer instantiation
-CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
-METHOD createAndRunUI
-AFTER INVOKE instantiateRenderer
-BIND r = $0.renderer
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench renderer is: " + r)
-ENDRULE
-
-RULE PartRenderingEngine enter
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD run
-AT ENTRY
-BIND r = $1
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine enter. uiRoot: " + r)
-ENDRULE
-
-RULE PartRenderingEngine exit
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD run
-BIND d = $display;
-     a = $this.theApp;
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. Display: " + d);
-   traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. Display is disposed: " + d.isDisposed());
-   traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. theApp is " + a);   
-ENDRULE
-
-RULE PartRenderingEngine createGui enter
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD createGui
-AT ENTRY
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui enter");
-ENDRULE
-
-RULE PartRenderingEngine createGui exit
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD createGui
-AT EXIT
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui exit, return: " + $!)
-ENDRULE
-
-RULE E4Testable init
-CLASS org.eclipse.e4.ui.internal.workbench.swt.E4Testable
-METHOD init
-AT ENTRY
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Testable.init, display: " + $1)
-ENDRULE
-
-RULE no visible windows
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD someAreVisible
-AT EXIT
-BIND res = $!
-IF !res
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine no visible windows ")
-ENDRULE
-
-RULE some are visible loop isToBeRendered
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD someAreVisible
-AFTER INVOKE MWindow.isToBeRendered
-BIND res = $!
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.isToBeRendered: " + res)
-ENDRULE
-
-RULE some are visible loop getWidget
-CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
-METHOD someAreVisible
-AFTER INVOKE MWindow.getWidget
-BIND res = $!
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.getWidget: " + res)
-ENDRULE
-
-RULE window set widget
-CLASS  org.eclipse.e4.ui.model.application.ui.impl.UIElementImpl
-METHOD setWidget
-AT ENTRY
-BIND win = $0;
-     wid = $1;
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. element: " + win);
-   traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. widget: " + wid);
-   traceStack();
-ENDRULE
-
-RULE close dialogs thread interruption
-CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
-METHOD doCloseDialogs
-AFTER INVOKE java.lang.Thread.interrupt
-BIND thread = $t;
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. thread: " +thread);
-ENDRULE
-
-RULE close dialogs window shells
-CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
-METHOD doCloseDialogs
-AT INVOKE java.lang.Thread.getAllStackTraces
-BIND wins = $windows;
-     shells = $windowShells;
-     d = $display;
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + wins.length);
-   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + shells.size());
-   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. display.isValid: " + d.isValidThread());   
-ENDRULE
-
-RULE getWorkbenchWindows app children
-CLASS org.eclipse.ui.internal.Workbench
-METHOD getWorkbenchWindows
-AFTER INVOKE org.eclipse.e4.ui.model.application.ui.MElementContainer.getChildren
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. App children: " + $!.size());
-ENDRULE
-
-RULE getWorkbenchWindows wwindow
-CLASS org.eclipse.ui.internal.Workbench
-METHOD getWorkbenchWindows
-AFTER INVOKE  org.eclipse.e4.core.contexts.IEclipseContext.get
-BIND w = $window
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. wwindow: " + $!);
-   traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. window: " + w);
-ENDRULE
-
-RULE close dialogs avoid close
-CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
-METHOD doCloseDialogs
-AFTER INVOKE getData
-BIND d = $!;
-     s = $shell;
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell: " + s);
-   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell data: " + d);
-   return true;
-ENDRULE
-
+#RULE platform ui enter
+#CLASS org.eclipse.ui.PlatformUI
+#METHOD createAndRunWorkbench
+#AT ENTRY
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench created")
+#ENDRULE
+#
+#RULE platform ui exit
+#CLASS org.eclipse.ui.PlatformUI
+#METHOD createAndRunWorkbench
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] createAndRunWorkbench returned: " + $!)
+#ENDRULE
+#
+#RULE enter early startup
+#CLASS org.eclipse.ui.internal.EarlyStartupRunnable
+#METHOD runEarlyStartup
+#AT ENTRY
+#BIND ext = $1
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] begin earlyStartup of " + ext)
+#ENDRULE
+#
+#RULE exit early startup
+#CLASS org.eclipse.ui.internal.EarlyStartupRunnable
+#METHOD runEarlyStartup
+#AT ENTRY
+#BIND ext = $1
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] end earlyStartup of " + ext)
+#ENDRULE
+#
+#RULE start startPlugins
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD startPlugins
+#AT ENTRY
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.startPlugins begin");
+#ENDRULE
+#
+#RULE end  startPlugins
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD startPlugins
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.startPlugins end");
+#ENDRULE
+#
+#RULE start runUI
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD runUI
+#AT ENTRY
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.runUI begin");
+#ENDRULE
+#
+#RULE end runUI
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD runUI
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.runUI end");
+#ENDRULE
+#
+#RULE workbench init end
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD init
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] Workbench.init returned: " + $!)
+#ENDRULE
+#
+#RULE e4workbench start
+#CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
+#METHOD createAndRunUI
+#AT ENTRY
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench enter")
+#ENDRULE
+#
+#RULE e4workbench end
+#CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
+#METHOD createAndRunUI
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench exit")
+#ENDRULE
+#
+#RULE e4workbench after renderer instantiation
+#CLASS org.eclipse.e4.ui.internal.workbench.E4Workbench
+#METHOD createAndRunUI
+#AFTER INVOKE instantiateRenderer
+#BIND r = $0.renderer
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Workbench renderer is: " + r)
+#ENDRULE
+#
+#RULE PartRenderingEngine enter
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD run
+#AT ENTRY
+#BIND r = $1
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine enter. uiRoot: " + r)
+#ENDRULE
+#
+#RULE PartRenderingEngine exit
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD run
+#BIND d = $display;
+#     a = $this.theApp;
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. Display: " + d);
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. Display is disposed: " + d.isDisposed());
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine exit. theApp is " + a);   
+#ENDRULE
+#
+#RULE PartRenderingEngine createGui enter
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD createGui
+#AT ENTRY
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui enter");
+#ENDRULE
+#
+#RULE PartRenderingEngine createGui exit
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD createGui
+#AT EXIT
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine.createGui exit, return: " + $!)
+#ENDRULE
+#
+#RULE E4Testable init
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.E4Testable
+#METHOD init
+#AT ENTRY
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] E4Testable.init, display: " + $1)
+#ENDRULE
+#
+#RULE no visible windows
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD someAreVisible
+#AT EXIT
+#BIND res = $!
+#IF !res
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine no visible windows ")
+#ENDRULE
+#
+#RULE some are visible loop isToBeRendered
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD someAreVisible
+#AFTER INVOKE MWindow.isToBeRendered
+#BIND res = $!
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.isToBeRendered: " + res)
+#ENDRULE
+#
+#RULE some are visible loop getWidget
+#CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+#METHOD someAreVisible
+#AFTER INVOKE MWindow.getWidget
+#BIND res = $!
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.getWidget: " + res)
+#ENDRULE
+#
+#RULE window set widget
+#CLASS  org.eclipse.e4.ui.model.application.ui.impl.UIElementImpl
+#METHOD setWidget
+#AT ENTRY
+#BIND win = $0;
+#     wid = $1;
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. element: " + win);
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. widget: " + wid);
+#   traceStack();
+#ENDRULE
+#
+#RULE close dialogs thread interruption
+#CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
+#METHOD doCloseDialogs
+#AFTER INVOKE java.lang.Thread.interrupt
+#BIND thread = $t;
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. thread: " +thread);
+#ENDRULE
+#
+#RULE close dialogs window shells
+#CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
+#METHOD doCloseDialogs
+#AT INVOKE java.lang.Thread.getAllStackTraces
+#BIND wins = $windows;
+#     shells = $windowShells;
+#     d = $display;
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + wins.length);
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + shells.size());
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. display.isValid: " + d.isValidThread());   
+#ENDRULE
+#
+#RULE getWorkbenchWindows app children
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD getWorkbenchWindows
+#AFTER INVOKE org.eclipse.e4.ui.model.application.ui.MElementContainer.getChildren
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. App children: " + $!.size());
+#ENDRULE
+#
+#RULE getWorkbenchWindows wwindow
+#CLASS org.eclipse.ui.internal.Workbench
+#METHOD getWorkbenchWindows
+#AFTER INVOKE  org.eclipse.e4.core.contexts.IEclipseContext.get
+#BIND w = $window
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. wwindow: " + $!);
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. window: " + w);
+#ENDRULE
+#
+#RULE close dialogs avoid close
+#CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
+#METHOD doCloseDialogs
+#AFTER INVOKE getData
+#BIND d = $!;
+#     s = $shell;
+#IF TRUE
+#DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell: " + s);
+#   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell data: " + d);
+#   return true;
+#ENDRULE
+#
 
 
 RULE close dialogs avoid close q7
