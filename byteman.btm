@@ -196,9 +196,11 @@ METHOD doCloseDialogs
 AT INVOKE java.lang.Thread.getAllStackTraces
 BIND wins = $windows;
      shells = $windowShells;
+     d = $display;
 IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + wins.length);
    traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + shells.size());
+   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. display.isValid: " + d.isValidThread());   
 ENDRULE
 
 RULE getWorkbenchWindows app children
