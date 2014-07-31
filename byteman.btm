@@ -200,3 +200,21 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + wins.length);
    traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + shells.size());
 ENDRULE
+
+RULE getWorkbenchWindows app children
+CLASS org.eclipse.ui.internal.Workbench
+METHOD getWorkbenchWindows
+AFTER INVOKE org.eclipse.e4.ui.model.application.ui.MElementContainer.getChildren
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. App children: " + $!.size());
+ENDRULE
+
+RULE getWorkbenchWindows wwindow
+CLASS org.eclipse.ui.internal.Workbench
+METHOD getWorkbenchWindows
+AFTER INVOKE  org.eclipse.e4.core.contexts.IEclipseContext.get
+BIND w = $window
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. wwindow: " + $!);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. window: " + w);
+ENDRULE
