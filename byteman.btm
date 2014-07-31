@@ -179,4 +179,25 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. element: " + win);
    traceln("BYTEMAN: [" + new java.util.Date() + "] UIElementImpl.setWidget. widget: " + wid);
    traceStack();
+
+RULE close dialogs thread interruption
+CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
+METHOD doCloseDialogs
+AFTER INVOKE java.lang.Thread.interrupt
+BIND thread = $t;
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. thread: " +thread);
+ENDRULE
+
+RULE close dialogs window shells
+CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
+METHOD doCloseDialogs
+AT INVOKE java.lang.Thread.getAllStackTraces
+BIND wins = $windows;
+     shells = $windowShells;
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. windows.size: " + $windows.length);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shells.size: " + $shells.size());
+ENDRULE
+
 ENDRULE
