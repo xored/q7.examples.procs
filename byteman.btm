@@ -224,7 +224,7 @@ ENDRULE
 RULE close dialogs avoid close
 CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
 METHOD doCloseDialogs
-AFTER INVOKE org.eclipse.swt.widgets.Widget.getData
+AFTER INVOKE getData
 BIND d = $data;
      s = $shell;
 IF TRUE
