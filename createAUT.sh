@@ -38,9 +38,7 @@ fi
 if [[ "$simrel" == "luna"* ]]; then
 	simrel_zip_name="eclipse-SDK-4.4-${target_env}.tar.gz"
 	simrel_zip_url="http://download.eclipse.org/eclipse/downloads/drops4/R-4.4-201406061215/$simrel_zip_name"
-	p2_repositories="http://download.eclipse.org/releases/luna/,\
-http://download.eclipse.org/modeling/emf/compare/updates/nightly/latest/,\
-http://download.eclipse.org/egit/updates-nightly"
+	p2_repositories="http://download.eclipse.org/releases/luna/"
 
 	# NB: papyrus sdk seems to be essential here
 	p2_installIUs="org.eclipse.papyrus.sdk.feature.feature.group"

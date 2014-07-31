@@ -147,6 +147,25 @@ CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
 METHOD someAreVisible
 AT EXIT
 BIND res = $!
-IF TRUE
-DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine visible windows: " + res)
+IF !res
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRenderingEngine no visible windows ")
 ENDRULE
+
+RULE some are visible loop isToBeRendered
+CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+METHOD someAreVisible
+AFTER INVOKE MWindow.isToBeRendered
+BIND res = $!
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.isToBeRendered: " + res)
+ENDRULE
+
+RULE some are visible loop getWidget
+CLASS org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine
+METHOD someAreVisible
+AFTER INVOKE MWindow.getWidget
+BIND res = $!
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] PartRendering.Engine.someAreVisible MWindow.getWidget: " + res)
+ENDRULE
+
