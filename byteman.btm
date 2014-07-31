@@ -220,3 +220,15 @@ IF TRUE
 DO traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. wwindow: " + $!);
    traceln("BYTEMAN: [" + new java.util.Date() + "] getWorkbenchWindows. window: " + w);
 ENDRULE
+
+RULE close dialogs avoid close
+CLASS org.eclipse.rcptt.internal.runtime.ui.Utils
+METHOD doCloseDialogs
+AFTER INVOKE org.eclipse.swt.widgets.Widget.getData
+BIND d = $data;
+     s = $shell;
+IF TRUE
+DO traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell: " + s);
+   traceln("BYTEMAN: [" + new java.util.Date() + "] CloseDialogs. shell data: " + d);
+   return true;
+ENDRULE
