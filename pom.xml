@@ -44,7 +44,7 @@
           </goals>
           <configuration>
             <executable>bash</executable>
-            <commandlineArgs>${basedir}/createAUT.sh ${profile-id} ${basedir}</commandlineArgs>
+            <commandlineArgs>${basedir}/createAUT.sh ${profile-id} ${project.build.directory}</commandlineArgs>
           </configuration>
         </execution>
       </executions>
