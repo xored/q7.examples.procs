@@ -65,9 +65,7 @@
         <extensions>true</extensions>
         <configuration>
           <aut>
-	    <groupId>org.eclipse</groupId>
-	    <artifactId>sdk</artifactId>
-	    <version>3.7.2</version>
+	    <explicit>${autPath}</explicit>
           </aut>
           <testOptions>
 	    <autStartupTimeout>600</autStartupTimeout>
